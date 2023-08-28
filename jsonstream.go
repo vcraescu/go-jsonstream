@@ -57,7 +57,7 @@ func Unmarshal[T any](ctx context.Context, r io.Reader, opts ...Option) (<-chan 
 }
 
 func skipTokensUntil(dec *json.Decoder, startFrom int) error {
-	for i := 0; i < startFrom; i++ {
+	for i := 0; i < startFrom && dec.More(); i++ {
 		if _, err := dec.Token(); err != nil {
 			return err
 		}
